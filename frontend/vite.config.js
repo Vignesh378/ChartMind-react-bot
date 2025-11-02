@@ -14,17 +14,18 @@ export default defineConfig({
     port: process.env.PORT || 3000,
     allowedHosts: [ '.vercel.app'],
   },
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
-    sourcemap: false,
-    minify: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
+ build: {
+  rollupOptions: {
+    output: {
+      manualChunks(id) {
+        if (id.includes('node_modules')) {
+          if (id.includes('react')) return 'react';
+          if (id.includes('lodash')) return 'lodash';
+          return 'vendor';
         }
-      }
-    }
-  }
+      },
+    },
+  },
+},
+
 })
