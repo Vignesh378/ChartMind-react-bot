@@ -13,13 +13,16 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Replace with your frontend URL
+    origin: 'https://chart-mind-react-bot-ck89.vercel.app', // Replace with your frontend URL
     credentials: true,
     allowedHeaders: [
         'Content-Type',
-        'Authorization'
+        'Authorization',
+        'Accept',
     ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+     preflightContinue: false,
+    optionsSuccessStatus: 204
 }));
 
 connectDB();    
