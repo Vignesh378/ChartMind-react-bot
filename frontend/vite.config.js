@@ -5,5 +5,26 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
- 
+  server: {
+    host: true,
+    port: process.env.PORT || 3000,
+  },
+  preview: {
+    host: true,
+    port: process.env.PORT || 3000,
+    allowedHosts: [ '.vercel.app'],
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
+    minify: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+        }
+      }
+    }
+  }
 })
